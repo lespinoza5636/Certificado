@@ -24,6 +24,22 @@
       }
     }
 
+    if (isset($_GET["del"]))
+    {
+      $validar = $eventos->deleteEvento($_GET["del"]);
+
+      if ($validar == true)
+      {
+        echo "<script type='text/javascript'>window.location='panel.php?d=1';
+        </script>";
+      }
+      else
+      {
+        echo "<script type='text/javascript'>window.location='panel.php?d=2';
+        </script>";
+      }
+    }
+
 
 ?>
 <!DOCTYPE html>
@@ -86,23 +102,26 @@ Menu
   <tbody>
 
   <?php 
-    $datos = $eventos->getEvento();
+  $datos = $eventos->getEvento();
+  if ($datos != false)
+  {
+    
     $i=1;
     foreach ($datos as $key => $value) {
-    
   ?>
     <tr>
       <th scope="row"><?php echo $i; ?></th>
       <td><?php echo $value["nombre"]; ?></td>
       <td><?php echo date("d/m/Y", strtotime($value["fi"])); ?></td>
       <td><?php echo date("d/m/Y", strtotime($value["ff"])); ?></td>
-      <td><a href=""><i class="fas fa-trash-alt"></i></a></td>
+      <td><a href="panel.php?del=<?php echo $value["idevento"];?>"><i class="fas fa-trash-alt"></i></a></td>
       <td><a href="pe.php?id=<?php echo $value["idevento"];?>"><i class="fas fa-users"></i></a></td>
     </tr>
     <?php 
       # code...
       $i++;
     }
+  }
     ?>
   </tbody>
 </table>

@@ -25,6 +25,24 @@ include("Conexion.php");
             {
                 return $result;
             }
+            else
+            {
+                return false;
+            }
+        }
+
+        function deleteEvento($id)
+        {
+            $deleteParticipantes = $this->con->query(
+                "DELETE FROM `certificado` WHERE `certificado`.`evento_idevento` = '$id'");
+            
+            if ($deleteParticipantes)
+            {
+                $deleteEventos = $this->con->query(
+                    "DELETE FROM `evento` WHERE `evento`.`idevento` = $id");
+                
+                return $deleteEventos;
+            }
         }
 
     }
