@@ -99,8 +99,6 @@ Menu
   </div>
   </div>
   
-  
-  
   <div class="form-group">
     <label for="cer">Certificado</label>
     <input type="file" required class="form-control" id="cer" name="cer" placeholder="Ingrese el correo">

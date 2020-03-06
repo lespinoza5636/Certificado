@@ -62,7 +62,7 @@ align-items: center;
             </span>
 
             <br><br>
-            <form action="" method="get">
+            <form action="index.php" method="get">
             <div class="form-row align-items-center">
             <div class="col-sm-8 my-1">
             <div class="input-group">

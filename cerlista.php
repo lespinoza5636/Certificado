@@ -62,7 +62,16 @@ Menu
 <br>
 <div class="row cuerpo">
 <div class="col-md-12">
-        <h2>Lista de participantes </h2><hr />
+
+<div class="row">
+    <div class="col-md-11">
+        <i class="fas fa-backward fa-2x"></i><h2>Lista de participantes </h2>
+        <hr />
+    </div>
+    <div class="col-md-1">
+        
+    </div>
+</div>
 
         <div class="row">
     <div class="col-md-3">
