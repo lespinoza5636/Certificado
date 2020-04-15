@@ -19,13 +19,13 @@ class Certificados{
 
         if (!$condicion)
         {
-            $sql_participante = "INSERT INTO `participante` (`cedula`, `nombre`, `apellido`, `correo`, `tipo_id`) VALUES ('$cedula', '$nombre', '$apellido', '$correo', $tipo);";
+            $sql_participante = "INSERT INTO `participante` (`cedula`, `nombre`, `apellido`, `correo`) VALUES ('$cedula', '$nombre', '$apellido', '$correo');";
             $result_participante = $this->con->query($sql_participante);
         }
         
         if ($sql_participante or $condicion)
         {
-            $sql = "INSERT INTO `certificado` (`codigo`, `evento_idevento`, `participante_cedula`) VALUES ('$codigo', '$id', '$cedula');";
+            $sql = "INSERT INTO `certificado` (`codigo`, `evento_idevento`, `participante_cedula`, `tipo_id`) VALUES ('$codigo', '$id', '$cedula',  $tipo);";
             $result = $this->con->query($sql);
                 
             if ($result)
