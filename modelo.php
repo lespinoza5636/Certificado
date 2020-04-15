@@ -1,5 +1,6 @@
 <?php
     session_start();
+    //echo php_ini_loaded_file();
     include("cer.php");
     $cer = new Certificados();
     
@@ -9,21 +10,24 @@
     {
         header("Location: login.php");
     }
-   
-    
-    if (isset($_POST["cedula"])){
-      
-      $cedula = $_POST["cedula"];
-      $nombre = $_POST["nombre"];
-      $apellido = $_POST["apellido"];
-      $correo = $_POST["correo"];
-      $id = $_POST["id"];
+
+    if (isset($_FILES['myfile'])) {
+
+      $file = $_FILES["myfile"];
       $tipo = $_POST["tipo"];
-      $cer->setCertificados($cedula, $nombre, $apellido, $correo, $tipo, $id);
-  }
+      $id = $_POST["id"];
+
+      $cer->setModelo($file, $tipo, $id);
+    }
   else
   if (!isset($_GET["id"]))
   {
+    echo isset($_FILES['myfile']);
+    print_r($_FILES['myfile']);
+    print_r($_POST["tipo"]);
+    print_r($_POST["id"]);
+    print_r($_POST);
+    exit();
     header("Location: panel.php");
   }
   
@@ -75,7 +79,7 @@ Menu
 </div>
 <br>
 <br>
-<form method="POST" enctype="multipart/form-data" action="pe.php">
+<form method="POST" enctype="multipart/form-data" action="modelo.php">
 <div class="row cuerpo">
   <div class="col-md-12">
   <h2>Modelo de certificado por tipo de participantes </h2><hr />
@@ -86,7 +90,7 @@ Menu
 
   <div class="form-group">
     <label for="tipo">Tipo</label>
-    <select name="tipo" id="tipo" require class="form-control">
+    <select name="tipo" id="tipo" require class="form-control" required>
       <option value="">Seleccione una opción</option>
     <?php
     foreach ($tipo as $key => $value)

@@ -98,7 +98,7 @@ Menu
 
   <div class="form-group">
     <label for="tipo">Tipo</label>
-    <select name="tipo" id="tipo" require class="form-control">
+    <select name="tipo" id="tipo" require class="form-control" required>
       <option value="">Seleccione una opción</option>
     <?php
     foreach ($tipo as $key => $value)

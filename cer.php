@@ -98,9 +98,9 @@ class Certificados{
         if ($nombre_archivo!="")
         {
             //Limitar el tipo de archivo y el tamaño    
-            if (!((strpos($tipo_archivo, "gif") || strpos($tipo_archivo, "jpeg") || strpos($tipo_archivo, "png")) && ($tamano_archivo  < 50000000))) 
+            if (!((strpos($tipo_archivo, "gif") || strpos($tipo_archivo, "jpeg") || strpos($tipo_archivo, "png")) && ($tamano_archivo  < 10000000))) 
             {
-                return "El tamaño de los archivos no es correcta. <br><br><table><tr><td><li>Se permiten archivos de 5 Mb máximo.</td></tr></table>";
+                return "El tamaño de los archivos no es correcta. <br><br><table><tr><td><li>Se permiten archivos de 1 Mb máximo.</td></tr></table>";
             }
             else
             {
@@ -123,6 +123,54 @@ class Certificados{
                 }
     
             }
+        }
+    }
+
+    function setModelo($archivo, $tipo, $id)
+    {
+        
+        $codigo = date("Y")."-TE-".rand(10000, 90000).$id;
+        
+        $result = self::subirImagen($archivo, $codigo);
+        
+        if (gettype($result) == "string")
+        {
+            return $result;
+        }
+        else
+        if (gettype($result) == "boolean" and $result == true)
+        {
+            $result = $this->con->query("SELECT * FROM `modleo` where `tipo_id` = $tipo and evento_id = $id");
+
+            if ($result->num_rows > 0)
+            {
+                echo "<script type='text/javascript'>
+                 window.location='modelo.php?resp=4&id=$id';
+                 </script>";
+            }
+            else
+            {
+                $sql_modelo = "INSERT INTO `modleo` (`imagen`, `tipo_id`, `evento_id`) VALUES ('$codigo', '$tipo', '$id');";
+                $result_modelo = $this->con->query($sql_modelo);
+
+                if ($result_modelo)
+                {
+                    echo "<script type='text/javascript'>
+                 window.location='modelo.php?resp=1&id=$id';
+                 </script>";
+                }
+                else{
+                    echo "<script type='text/javascript'>
+                 window.location='modelo.php?resp=2&id=$id';
+                 </script>";
+                }
+            }
+        }
+        else
+        {
+            echo "<script type='text/javascript'>
+                 window.location='modelo.php?resp=3&id=$id';
+                 </script>";
         }
     }
 }
