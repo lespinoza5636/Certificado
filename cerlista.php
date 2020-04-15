@@ -8,6 +8,12 @@
         header("Location: login.php");
     }
 
+    if (isset($_GET["del"]))
+    {
+        #Eliminar participantes (incompleto) . Pensar en la forma de eliminar
+        #$datos = $participantes->getListaParticipante($_GET["id"]);
+    }
+
     if (isset($_GET["id"]))
     {
         $datos = $participantes->getListaParticipante($_GET["id"]);
@@ -129,7 +135,7 @@ Menu
       <td><?php echo $value["nombre"]; ?></td>
       <td><?php echo $value["apellido"]; ?></td>
       <td><?php echo $value["correo"]; ?></td>
-      <td><a href="panel.php?del=<?php echo $value["idevento"];?>"><i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Eliminar participante"></i></a></td>
+      <td><a href="cerlista.php?del=<?php echo $value["cedula"];?>"><i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Eliminar participante"></i></a></td>
     </tr>
     <?php 
       # code...
