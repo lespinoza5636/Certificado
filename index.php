@@ -33,12 +33,12 @@ align-items: center;
 <body>
 
 <div class="banner">
-    banner
+    <img src="imagenes/banner.png" alt="Smiley face" height="100%" width="100%">
 </div>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1 class="text-center" style="margin-bottom: 40px;">Sistema de Validación de Certificados</h1>
+ 
         
 
 <div class="alert alert-info" role="alert">
