@@ -8,8 +8,3 @@ Falta
 Eliminar participantes
 Modificar participantes
 Respuestas a las acciones
-
-
-Arreglar el tipo
-Debe de ir en la tabla certificado id_tipo
-Quitar de la tabla participante id_tipo
