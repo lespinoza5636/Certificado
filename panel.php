@@ -98,6 +98,7 @@ Menu
       <th></th>
       <th></th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -118,6 +119,7 @@ Menu
       <td><a href="panel.php?del=<?php echo $value["idevento"];?>"><i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Eliminar congreso"></i></a></td>
       <td><a href="cerlista.php?id=<?php echo $value["idevento"];?>"><i class="fas fa-users" data-toggle="tooltip" data-placement="top" title="Listar participantes"></i></a></td>
       <td><a href="pe.php?id=<?php echo $value["idevento"];?>"><i class="fas fa-user-plus" data-toggle="tooltip" data-placement="top" title="Agregar participantes"></i></a></td>
+      <td><a href="modelo.php?id=<?php echo $value["idevento"];?>"><i class="fas fa-certificate" data-toggle="tooltip" data-placement="top" title="Agregar modelo de certificado"></i></a></td>
     </tr>
     <?php 
       # code...

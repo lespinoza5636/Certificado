@@ -48,6 +48,12 @@ tr:hover {
     padding: 10px;
 }
 </style>
+<script>
+  function atras()
+  {
+    window.location="panel.php";
+  }
+</script>
 </head>
 <body>
 
@@ -64,8 +70,7 @@ Menu
 <div class="col-md-12">
 
 <div class="row">
-    <div class="col-md-11">
-        <i class="fas fa-backward fa-2x"></i><h2>Lista de participantes </h2>
+    <div class="col-md-11"><h2>Lista de participantes </h2>
         <hr />
     </div>
     <div class="col-md-1">
@@ -134,6 +139,7 @@ Menu
     ?>
   </tbody>
 </table>
+<input type="button" value="Atrás" onclick="atras()" class="btn btn-info" />
 <button type="button" class="btn btn-success">
   Filtrar
 </button>

@@ -78,22 +78,10 @@ Menu
 <form method="POST" enctype="multipart/form-data" action="pe.php">
 <div class="row cuerpo">
   <div class="col-md-12">
-  <h2>Datos del participante </h2><hr />
+  <h2>Modelo de certificado por tipo de participantes </h2><hr />
   <div class="form-group">
-    <label for="cedula">Cédula</label>
-    <input type="text" required class="form-control" id="cedula" name="cedula" placeholder="Ingrese la cédula" pattern="[0-9]{1, 13}[A-Z]{1}">
-  </div>
-  <div class="form-group">
-    <label for="nombre">Nombre</label>
-    <input type="text" required class="form-control" id="nombre" name="nombre" placeholder="Ingrese el nombre">
-  </div>
-  <div class="form-group">
-    <label for="apellido">Apellido</label>
-    <input type="text" required class="form-control" id="apellido" name="apellido" placeholder="Ingrese el apellido">
-  </div>
-  <div class="form-group">
-    <label for="correo">Correo</label>
-    <input type="email" required class="form-control" id="correo" name="correo" placeholder="Ingrese el correo">
+    <label for="myfile">Modelo</label>
+    <input type="file" required class="form-control" id="myfile" name="myfile" placeholder="Ingrese el modelo">
   </div>
 
   <div class="form-group">

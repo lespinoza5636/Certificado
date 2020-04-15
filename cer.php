@@ -11,44 +11,83 @@ class Certificados{
         $this->con = $conexion->getCon();
     }
 
-    function setCertificados($archivo, $cedula, $nombre, $apellido, $correo, $id)
+    function setCertificados($cedula, $nombre, $apellido, $correo, $tipo, $id)
     {
+        
         $codigo = date("Y"). "-".substr($cedula, 3, 6)."-TE-".rand(10000, 90000);
-        $result = self::subirImagen($archivo, $codigo);
-        if (gettype($result) == "string")
-        {
-            return $result;
-            exit();
-        }
-        else
-        if (gettype($result) == "boolean" and $result == true)
-        {
-            $codigo = date("Y"). "-".substr($cedula, 3, 6)."-TE-".rand(10000, 90000);
-            echo $codigo;
+        $condicion = self::getParticipante($cedula);
 
-            $sql_participante = "INSERT INTO `participante` (`cedula`, `nombre`, `apellido`, `correo`) VALUES ('$cedula', '$nombre', '$apellido', '$correo');";
+        if (!$condicion)
+        {
+            $sql_participante = "INSERT INTO `participante` (`cedula`, `nombre`, `apellido`, `correo`, `tipo_id`) VALUES ('$cedula', '$nombre', '$apellido', '$correo', $tipo);";
             $result_participante = $this->con->query($sql_participante);
-            
-            if ($sql_participante)
-            {
-                $sql = "INSERT INTO `certificado` (`codigo`, `img`, `evento_idevento`, `participante_cedula`) VALUES ('$codigo', '$this->nombre_img', '$id', '$cedula');";
-                $result = $this->con->query($sql);
-                
-                if ($result)
-                {
-                    echo "Exito";
-                    exit();
-                }
-            }
-            exit();
         }
-        else
+        
+        if ($sql_participante or $condicion)
         {
-
+            $sql = "INSERT INTO `certificado` (`codigo`, `evento_idevento`, `participante_cedula`) VALUES ('$codigo', '$id', '$cedula');";
+            $result = $this->con->query($sql);
+                
+            if ($result)
+            {
+                 echo "<script type='text/javascript'>
+                 window.location='pe.php?resp=1&id=$id';
+                 </script>";
+            }
+            else{
+                echo "<script type='text/javascript'>
+                window.location='panel.php?resp=2';
+                </script>";
+            }
         }
-        exit();
     }
 
+    
+
+    function getListaParticipante($id)
+        {
+            $result = $this->con->query("SELECT * FROM `certificado` as cer inner join `participante` as par
+            on cer.`participante_cedula` = par.cedula 
+            where `evento_idevento` = $id limit 10");
+
+            if ($result->num_rows > 0)
+            {
+                return $result;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        function getParticipante($id)
+        {
+            $result = $this->con->query("SELECT * FROM `participante` where `cedula` = $id");
+
+            if ($result->num_rows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        function getTipo()
+        {
+            $result = $this->con->query("SELECT * FROM `tipos`");
+
+            if ($result->num_rows > 0)
+            {
+                return $result;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    
     function subirImagen($archivo_img, $codigo)
     {
         $nombre_archivo = $archivo_img['name'];
@@ -86,22 +125,6 @@ class Certificados{
             }
         }
     }
-
-    function getListaParticipante($id)
-        {
-            $result = $this->con->query("SELECT * FROM `certificado` as cer inner join `participante` as par
-            on cer.`participante_cedula` = par.cedula 
-            where `evento_idevento` = $id limit 10");
-
-            if ($result->num_rows > 0)
-            {
-                return $result;
-            }
-            else
-            {
-                return false;
-            }
-        }
 }
 
 ?>

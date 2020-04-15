@@ -40,8 +40,12 @@ include("Conexion.php");
             {
                 $deleteEventos = $this->con->query(
                     "DELETE FROM `evento` WHERE `evento`.`idevento` = $id");
+
+                $deleteModelo = $this->con->query(
+                    "DELETE FROM `modleo` WHERE `evento`.`idevento` = $id");
                 
-                return $deleteEventos;
+                if ($deleteEventos and $deleteModelo)
+                    return true;
             }
         }
 
