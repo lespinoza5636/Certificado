@@ -87,6 +87,20 @@ class Certificados{
                 return false;
             }
         }
+
+        function getCertificadoParticipante($id, $cedula)
+        {
+            $result = $this->con->query("SELECT * FROM `certificado` WHERE certificado.participante_cedula = '$cedula' and certificado.evento_idevento = $id");
+
+            if ($result->num_rows > 0)
+            {
+                return $result;
+            }
+            else
+            {
+                return false;
+            }
+        }
     
     function subirImagen($archivo_img, $codigo)
     {

@@ -17,6 +17,7 @@
     if (isset($_GET["id"]))
     {
         $datos = $participantes->getListaParticipante($_GET["id"]);
+        
     }
     else
     {
@@ -137,7 +138,72 @@ Menu
       <td><?php echo $value["apellido"]; ?></td>
       <td><?php echo $value["correo"]; ?></td>
       <td>  
-      <a><i class="fas fa-certificate" data-toggle="tooltip" data-placement="top" title="Certificado" data-target="#exampleModal"></i></a> 
+
+
+
+
+      <a href="#" data-toggle="modal" data-target="#exampleModal<?php echo $value["cedula"]; ?>"><i class="fas fa-certificate" data-toggle="tooltip" data-placement="top" title="Certificado"></i></a> 
+     
+     
+     <?php
+     $cerp = $participantes->getCertificadoParticipante($_GET["id"], $value["cedula"]);
+     ?>
+     
+     
+<!-- - -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal<?php echo $value["cedula"]; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+      <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Congreso</th>
+      <th scope="col">Tipo</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <th scope="row">1</th>
+      <td><?php echo $value["cedula"]; ?></td>
+      <td>Otto</td>
+      <td>
+      <input type="hidden" value="">
+      <a href="#" id="cerp"><i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Eliminar certificado"></i></a></td>
+    </tr>
+
+
+  </tbody>
+</table>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- - -->
+
+
+
+     
       </td>
       <td><a href="cerlista.php?del=<?php echo $value["cedula"];?>"><i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Eliminar participante"></i></a></td>
     </tr>
@@ -161,26 +227,7 @@ Menu
 </div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -189,6 +236,18 @@ Menu
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
+
+$(document).ready(function(){
+  $("#cerp").click(function(){
+    $.post("delcer.php",
+    {
+      id: 
+    },
+    function(data,status){
+      alert("Data: " + data + "\nStatus: " + status);
+    });
+  });
+});
 </script>
 </body>
 </html>
