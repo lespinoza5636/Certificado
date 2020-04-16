@@ -195,7 +195,7 @@ class Certificados{
                 $file = $archivo_img['name'];
                 $res = explode(".", $nombre_archivo);
                 $extension = $res[count($res)-1];
-                $nombre= $codigo."." . $extension; //renombrarlo como nosotros queremos
+                $nombre= $codigo."." . "jpg"; //renombrarlo como nosotros queremos
                 $this->nombre_img = $nombre;
                 $dirtemp = "cer/".$nombre."";//Directorio temporaral para subir el fichero
     

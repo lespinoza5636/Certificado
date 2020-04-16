@@ -1,11 +1,15 @@
-Listo (Falta)
+Listo
 Agregar evento
-Listar, agregar y eliminar participantes por evento (Filtrar)
+Listar, agregar y eliminar participantes por evento
 Agregar participantes
 Agregar, mostrar y eliminar modelo certificado
 
 Falta
 Respuestas a las acciones
+    Modelo de certificado
+        Agregar y eliminar
+Filtrar participante
+Modificar congreso
 Mostrar certificado en el index
 enviar correo cuando se agrega un participante
 

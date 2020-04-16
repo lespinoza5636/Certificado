@@ -48,8 +48,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script
+              src="https://code.jquery.com/jquery-3.3.1.min.js"
+              integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+              crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous" />
+    <script src="funciones.js"></script>
     <title>Certificado</title>
 
     <style>
@@ -87,6 +92,21 @@ banner
 Menu
 </div>
 <br>
+<?php
+  if (isset($_GET["d"]) and $_GET["d"] == 1){
+?>
+<div id="mess" class="alert alert-success" role="alert">
+  El dato fue eliminado satisfactorimente
+</div>
+<?php
+  }else if (isset($_GET["d"]) and $_GET["d"] == 2){
+?>
+<div id="mess" class="alert alert-danger" role="alert">
+  Hubo un error al momento de agregar los datos. Consulte con su administrador
+</div>
+<?php
+}
+?>
 <br>
 <div class="row cuerpo">
 <div class="col-md-12">
