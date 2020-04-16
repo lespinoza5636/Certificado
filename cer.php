@@ -155,6 +155,26 @@ class Certificados{
                 return false;
             }
         }
+
+        function delParticipante($cedula)
+        {
+            //  echo "DELETE FROM `participante` WHERE `participante`.`cedula` = '$cedula'";
+            //  exit();
+             $result_cer = $this->con->query("DELETE FROM `certificado` WHERE `certificado`.`participante_cedula` = '$cedula'");
+
+            if ($result_cer)
+            {
+                // echo "DELETE FROM `participante` WHERE `participante`.`cedula` = '$cedula'";
+                // exit();
+                $result = $this->con->query("DELETE FROM `participante` WHERE `participante`.`cedula` = '$cedula'");
+
+                return $result;
+            }
+            else
+            {
+                return false;
+            }
+        }
     
     function subirImagen($archivo_img, $codigo)
     {

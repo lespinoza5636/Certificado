@@ -10,8 +10,18 @@
 
     if (isset($_GET["del"]))
     {
-        #Eliminar participantes (incompleto) . Pensar en la forma de eliminar
-        #$datos = $participantes->getListaParticipante($_GET["id"]);
+      $datos_del = $participantes->delParticipante($_GET["del"]);
+      $id = $_GET["id"];
+      if ($datos_del)
+      {
+        echo "<script type='text/javascript'>window.location='cerlista.php?id=$id&d=1';
+        </script>";
+      }
+      else
+      {
+        echo "<script type='text/javascript'>window.location='cerlista.php?id=$id&d=2';
+        </script>";
+      }
     }
 
     if(isset($_POST["idCer"]))
@@ -220,7 +230,7 @@ Menu
 
      
       </td>
-      <td><a href="cerlista.php?del=<?php echo $value["cedula"];?>"><i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Eliminar participante"></i></a></td>
+      <td><a href="cerlista.php?del=<?php echo $value["cedula"];?>&id=<?php echo $_GET["id"];?>"><i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Eliminar participante"></i></a></td>
     </tr>
     <?php 
       # code...
@@ -256,7 +266,7 @@ $(function () {
 
 $(document).ready(function(){
   $(".cerp").click(function(){
-    
+
     $.post("cerlista.php",
     {
       idCer: $(this).find("input").val()
