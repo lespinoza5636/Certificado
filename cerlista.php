@@ -211,7 +211,11 @@ tr:hover {
   </thead>
   <tbody>
 
-<?php 
+<?php
+
+if ($cerp!=false)
+{
+
   foreach ($cerp as $key => $certificado) {
 
 ?>
@@ -229,6 +233,8 @@ tr:hover {
     </tr>
 <?php
   }
+    
+}
 ?>
 
   </tbody>
