@@ -36,7 +36,7 @@ class Certificados{
             }
             else{
                 echo "<script type='text/javascript'>
-                window.location='panel.php?resp=2';
+                window.location='pe.php?resp=2&id=$id';
                 </script>";
             }
         }
