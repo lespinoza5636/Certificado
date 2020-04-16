@@ -5,13 +5,14 @@ Agregar participantes
 Agregar, mostrar y eliminar modelo certificado
 
 Falta
-Respuestas a las acciones
-    Modelo de certificado
-        Agregar y eliminar
 Filtrar participante
 Modificar congreso
 Mostrar certificado en el index
-enviar correo cuando se agrega un participante
+
+
+
+
+No sería necesario: enviar correo cuando se agrega un participante (La busqueda se realizará por # de cédula)
 
 
 https://stackoverflow.com/questions/24114676/git-error-failed-to-push-some-refs-to-remote
