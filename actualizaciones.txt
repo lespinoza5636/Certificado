@@ -1,14 +1,13 @@
 Listo (Falta)
 Agregar evento
-Listar participantes por evento (Filtrar)
-Agregar participantes 
-Agregar modelo certificado (Listar modelos, eliminar modelos)
+Listar, agregar y eliminar participantes por evento (Filtrar)
+Agregar participantes
+Agregar, mostrar y eliminar modelo certificado
 
 Falta
-Eliminar participantes
-Modificar participantes
 Respuestas a las acciones
-
+Mostrar certificado en el index
+enviar correo cuando se agrega un participante
 
 
 https://stackoverflow.com/questions/24114676/git-error-failed-to-push-some-refs-to-remote

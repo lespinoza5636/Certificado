@@ -22,21 +22,35 @@ class Certificados{
             $sql_participante = "INSERT INTO `participante` (`cedula`, `nombre`, `apellido`, `correo`) VALUES ('$cedula', '$nombre', '$apellido', '$correo');";
             $result_participante = $this->con->query($sql_participante);
         }
+        else{
+            $result_participante = true;
+        }
         
-        if ($sql_participante or $condicion)
+        
+
+        if ($result_participante or $condicion)
         {
-            $sql = "INSERT INTO `certificado` (`codigo`, `evento_idevento`, `participante_cedula`, `tipo_id`) VALUES ('$codigo', '$id', '$cedula',  $tipo);";
-            $result = $this->con->query($sql);
-                
-            if ($result)
+            $condicion2 = self::getVerificaParticipante($cedula, $id);
+            if (!$condicion2)
             {
-                 echo "<script type='text/javascript'>
-                 window.location='pe.php?resp=1&id=$id';
-                 </script>";
+                $sql = "INSERT INTO `certificado` (`codigo`, `evento_idevento`, `participante_cedula`, `tipo_id`) VALUES ('$codigo', '$id', '$cedula',  $tipo);";
+                $result = $this->con->query($sql);
+                
+                if ($result)
+                {
+                     echo "<script type='text/javascript'>
+                     window.location='pe.php?resp=1&id=$id';
+                     </script>";
+                }
+                else{
+                    echo "<script type='text/javascript'>
+                    window.location='pe.php?resp=2&id=$id';
+                    </script>";
+                }
             }
             else{
                 echo "<script type='text/javascript'>
-                window.location='pe.php?resp=2&id=$id';
+                window.location='pe.php?resp=3&id=$id';
                 </script>";
             }
         }
@@ -62,15 +76,40 @@ class Certificados{
 
         function getParticipante($id)
         {
-            $result = $this->con->query("SELECT * FROM `participante` where `cedula` = $id");
 
-            if ($result->num_rows > 0)
+            $result = $this->con->query("SELECT * FROM `participante` where `cedula` = '$id'");
+
+            if ($result)
             {
-                return true;
+                if ($result->num_rows > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
+        }
+
+        function getVerificaParticipante($cedula, $id)
+        {
+            //echo "SELECT * FROM `certificado` where `participante_cedula	` = '$cedula'
+            //and evento_idevento = $id";
+            //exit();
+            $result = $this->con->query("SELECT * FROM `certificado` where `participante_cedula` = '$cedula'
+            and evento_idevento = $id");
+
+            if ($result)
             {
-                return false;
+                if ($result->num_rows > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 

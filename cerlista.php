@@ -187,13 +187,15 @@ Menu
 ?>
     <tr id="<?php echo $certificado["codigo"]; ?>">
       <th scope="row"><?php echo $certificado["codigo"]; ?>
-      <input type="hidden" id="codigo" name="codigo" value="<?php echo $certificado["codigo"]; ?>">
+      
       </th>
       <td><?php echo $certificado["congreso"]; ?></td>
       <td><?php echo $certificado["tipo"]; ?></td>
       <td>
-      <input type="hidden" value="">
-      <a href="#" id="cerp"><i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Eliminar certificado"></i></a></td>
+      <a href="#" class="cerp">
+      <input type="hidden" id="codigo" class="codigo" name="codigo" value="<?php echo $certificado["codigo"]; ?>">
+      <i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Eliminar certificado">
+      </i></a></td>
     </tr>
 <?php
   }
@@ -253,11 +255,11 @@ $(function () {
 })
 
 $(document).ready(function(){
-  $("#cerp").click(function(){
+  $(".cerp").click(function(){
     
     $.post("cerlista.php",
     {
-      idCer: document.getElementById("codigo").value
+      idCer: $(this).find("input").val()
     },
     function(data,status){
       //alert("Data: " + data + "\nStatus: " + status);
