@@ -14,6 +14,11 @@
         #$datos = $participantes->getListaParticipante($_GET["id"]);
     }
 
+    if(isset($_POST["idCer"]))
+    {
+      $resultado = $participantes->delCer($_POST["idCer"]);
+    }
+
     if (isset($_GET["id"]))
     {
         $datos = $participantes->getListaParticipante($_GET["id"]);
@@ -158,7 +163,7 @@ Menu
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Certificados</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -168,7 +173,7 @@ Menu
       <table class="table">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">#</th>
+      <th scope="col">Código</th>
       <th scope="col">Congreso</th>
       <th scope="col">Tipo</th>
       <th scope="col"></th>
@@ -176,15 +181,23 @@ Menu
   </thead>
   <tbody>
 
-    <tr>
-      <th scope="row">1</th>
-      <td><?php echo $value["cedula"]; ?></td>
-      <td>Otto</td>
+<?php 
+  foreach ($cerp as $key => $certificado) {
+
+?>
+    <tr id="<?php echo $certificado["codigo"]; ?>">
+      <th scope="row"><?php echo $certificado["codigo"]; ?>
+      <input type="hidden" id="codigo" name="codigo" value="<?php echo $certificado["codigo"]; ?>">
+      </th>
+      <td><?php echo $certificado["congreso"]; ?></td>
+      <td><?php echo $certificado["tipo"]; ?></td>
       <td>
       <input type="hidden" value="">
       <a href="#" id="cerp"><i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Eliminar certificado"></i></a></td>
     </tr>
-
+<?php
+  }
+?>
 
   </tbody>
 </table>
@@ -226,12 +239,14 @@ Menu
 </div>
 </div>
 
-
-
-
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script
+              src="https://code.jquery.com/jquery-3.3.1.min.js"
+              integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+              crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
 <script>  
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
@@ -239,13 +254,16 @@ $(function () {
 
 $(document).ready(function(){
   $("#cerp").click(function(){
-    $.post("delcer.php",
+    
+    $.post("cerlista.php",
     {
-      id: 
+      idCer: document.getElementById("codigo").value
     },
     function(data,status){
-      alert("Data: " + data + "\nStatus: " + status);
+      //alert("Data: " + data + "\nStatus: " + status);
+      alert("Certificado eliminado");
     });
+    $(this).closest('tr').remove();
   });
 });
 </script>

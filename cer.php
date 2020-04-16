@@ -90,11 +90,26 @@ class Certificados{
 
         function getCertificadoParticipante($id, $cedula)
         {
-            $result = $this->con->query("SELECT * FROM `certificado` WHERE certificado.participante_cedula = '$cedula' and certificado.evento_idevento = $id");
+            $result = $this->con->query("SELECT certificado.codigo, evento.nombre as congreso, tipos.nombre as tipo FROM `certificado` INNER JOIN `evento` INNER JOIN `tipos` ON
+            tipos.id = certificado.tipo_id and certificado.evento_idevento = evento.idevento WHERE certificado.participante_cedula = '$cedula' and certificado.evento_idevento = $id");
 
             if ($result->num_rows > 0)
             {
                 return $result;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        function delCer($id)
+        {
+            $result = $this->con->query("DELETE FROM `certificado` WHERE `certificado`.`codigo` = '$id'");
+
+            if ($result)
+            {
+                return true;
             }
             else
             {
