@@ -261,6 +261,54 @@ class Certificados{
                  </script>";
         }
     }
+
+    
+  function getListaModelosDiplomas()
+  {
+    $result = $this->con->query("SELECT modleo.imagen, modleo.idm, tipos.nombre as tipos 
+
+    FROM modleo
+    
+    INNER JOIN tipos ON (modleo.tipo_id=tipos.id)");
+ 
+    if ($result)
+  {
+    if ($result->num_rows > 0)
+    {
+        return $result;
+    }
+    else
+    {
+        return false;
+    }  
+  }
+    
+
+  }
+
+  function funcionEliminar($id, $img)
+    {
+        $dir = "cer/"; /*Ruta local donde se almacenan tu imagen*/
+        echo $dir.$img."jpg";
+        if (unlink($dir.$img.".jpg"))
+        {
+            $deletediploma = $this->con->query("DELETE FROM `modleo` WHERE `modleo`.`idm` = '$id'");
+            return $deletediploma;
+
+        }
+        else
+        {
+            echo "ERROR";
+            exit();
+        }  /* Eliminas tu Imagen*/
+
+        
+
+        //unlink("/cer".$foto); 
+            
+    }
+
+
 }
 
 ?>

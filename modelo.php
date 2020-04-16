@@ -5,6 +5,25 @@
     $cer = new Certificados();
     
     $tipo = $cer->getTipo();
+    $datos = $cer->getListaModelosDiplomas();
+
+    if (isset($_GET["del"]))
+    {
+      
+      $cert = $cer->funcionEliminar($_GET["del"], $_GET["img"]);
+      $id = $_GET["id"];
+
+      if ($cert == true)
+      {
+        echo "<script type='text/javascript'>window.location='modelo.php?d=1&id=$id';
+        </script>";
+      }
+      else
+      {
+        echo "<script type='text/javascript'>window.location='modelo.php?d=2&id=$id';
+        </script>";
+      }
+    }
 
     if (!isset($_SESSION["id"]))
     {
@@ -22,17 +41,12 @@
   else
   if (!isset($_GET["id"]))
   {
-    echo isset($_FILES['myfile']);
-    print_r($_FILES['myfile']);
-    print_r($_POST["tipo"]);
-    print_r($_POST["id"]);
-    print_r($_POST);
-    exit();
     header("Location: panel.php");
   }
-  
+
   
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,10 +86,10 @@ tr:hover {
 
 <div class="container">
 <div class="row">
-banner
+  <img src="imagenes/banner.png" alt="Smiley face" height="100%" width="100%">
 </div>
 <div class="row">
-Menu
+
 </div>
 <br>
 <br>
@@ -113,9 +127,53 @@ Menu
 <div class="row">
 <div class="col-md-12">
 <h2>Modelos</h2>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      
+      <th scope="col">Certificado</th>
+      <th scope="col">TIipo de Certificado</th>
+      <th scope="col">  </th>
+    </tr>
+  </thead>
+  <tbody>
+
+  <?php 
+  if ($datos != false)
+  {
+    
+
+    foreach ($datos as $key => $value) {
+  ?>
+    
+    <tr>
+      
+      <td><img src="cer/<?php echo $value["imagen"]; ?>.jpg" alt="No se encuentra la imagen" height="100px"></td>
+      <td><?php echo $value["tipos"]; ?></td>
+      <td><a href="modelo.php?del=<?php echo $value["idm"];?>&id=<?php echo $_GET["id"]; ?>&img=<?php echo $value["imagen"]; ?>"><i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Eliminar certicado"></i></a></td>
+    </tr>
+
+
+    <?php 
+      # code...
+    }
+  }
+    ?>
+
+
+  </tbody>
+</table>
 </div>
 
+
 </div>
+
+<script>  
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
+
 
 </body>
 </html>
