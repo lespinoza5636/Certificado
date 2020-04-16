@@ -86,10 +86,10 @@ tr:hover {
 
 <div class="container">
 <div class="row">
-banner
+<img src="imagenes/banner.png" alt="Smiley face" height="100%" width="100%">
 </div>
 <div class="row">
-Menu
+
 </div>
 <br>
 <?php
