@@ -1,16 +1,12 @@
 Listo
 Agregar evento
 Listar, agregar y eliminar participantes por evento
-Agregar participantes
+Agregar, filtrar participantes
 Agregar, mostrar y eliminar modelo certificado
 
 Falta
-Filtrar participante
 Modificar congreso
 Mostrar certificado en el index
-
-
-
 
 No sería necesario: enviar correo cuando se agrega un participante (La busqueda se realizará por # de cédula)
 

@@ -74,6 +74,41 @@ class Certificados{
             }
         }
 
+        function getListaParticipanteFiltro()
+        {
+            $id = $_COOKIE["id"];
+
+            $cadena = "SELECT * FROM `certificado` as cer inner join `participante` as par
+            on cer.`participante_cedula` = par.cedula 
+            where `evento_idevento` = $id";
+
+            if (isset($_COOKIE["cedula"]))
+            {
+                $cadena .= " and cedula = '" . $_COOKIE["cedula"]."'";
+            }
+            
+            if (isset($_COOKIE["nombre"]))
+            {
+                $cadena .= " and nombre = '" . $_COOKIE["nombre"]."'";
+            }
+
+            if (isset($_COOKIE["apellido"]))
+            {
+                $cadena .= " and apellido = '" . $_COOKIE["apellido"]."'";
+            }
+
+            $result = $this->con->query($cadena);
+
+            if ($result->num_rows > 0)
+            {
+                return $result;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         function getParticipante($id)
         {
 

@@ -29,10 +29,40 @@
       $resultado = $participantes->delCer($_POST["idCer"]);
     }
 
-    if (isset($_GET["id"]))
+    if (isset($_GET["fil"]) and isset($_GET["id"]))
     {
-        $datos = $participantes->getListaParticipante($_GET["id"]);
+      $id = $_GET["id"];
+        setcookie("cedula", "", time() - (21600 * 30), "/"); // 21600 = 6 horas
+        setcookie("nombre", "", time() - (21600 * 30), "/"); // 21600 = 6 horas
+        setcookie("apellido", "", time() - (21600 * 30), "/"); // 21600 = 6 horas
+        setcookie("id", "", time() - (21600 * 30), "/"); // 21600 = 6 horas
         
+        echo "<script type='text/javascript'>window.location='cerlista.php?id=$id';
+        </script>";
+    }
+
+    if (isset($_GET["id"]) or isset($_COOKIE["id"]) or isset($_POST["id"]))
+    {
+      if (isset($_POST["cedula"]) && isset($_POST["nombre"]) && isset($_POST["apellido"]) && isset($_POST["id"]))
+      {
+        //Documentación: https://www.w3schools.com/php/php_cookies.asp
+        setcookie("cedula", $_POST["cedula"], time() + (21600 * 30), "/"); // 21600 = 6 horas
+        setcookie("nombre", $_POST["nombre"], time() + (21600 * 30), "/"); // 21600 = 6 horas
+        setcookie("apellido", $_POST["apellido"], time() + (21600 * 30), "/"); // 21600 = 6 horas
+        setcookie("id", $_POST["id"], time() + (21600 * 30), "/"); // 21600 = 6 horas
+
+        $id = $_POST["id"];
+        echo "<script type='text/javascript'>window.location='cerlista.php?id=$id';
+        </script>";
+      }else
+      if (isset($_COOKIE["cedula"]) or isset($_COOKIE["nombre"]) or isset($_COOKIE["apellido"]) or isset($_COOKIE["id"]))
+      {
+        $datos = $participantes->getListaParticipanteFiltro();
+      }
+      else
+      {
+        $datos = $participantes->getListaParticipante($_GET["id"]);
+      } 
     }
     else
     {
@@ -126,10 +156,11 @@ tr:hover {
         <header class="container h-100">
             <div class="d-flex align-items-center justify-content-center h-100">
             <div class="d-flex flex-column">
-            <form class="col-12">
+            <form class="col-12" method="POST" action="cerlista.php">
             <div class="form-group">
                 <label for="cedula">Cédula</label>
                 <input type="text" class="form-control" name="cedula" id="cedula" placeholder="Ingrese la cédula">
+                <input type="hidden" name="id" value="<?php echo $_GET["id"];?>">
             </div>
             <div class="form-group">
                 <label for="nombre">Nombre</label>
@@ -140,6 +171,10 @@ tr:hover {
                 <label for="apellido">Apellido</label>
                 <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Ingrese un apellido">
             </div>
+            <input type="button" value="Atrás" onclick="atras()" class="btn btn-info" />
+            <button type="submit" class="btn btn-success">
+              Filtrar
+            </button>
             </form>   
             </div>
             </div>
@@ -147,6 +182,7 @@ tr:hover {
         </section>
         </div>
         <div class="col-md-9">
+        
 <table class="table">
   <thead class="thead-dark">
     <tr>
@@ -242,8 +278,8 @@ if ($cerp!=false)
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar cambios</button>
       </div>
     </div>
   </div>
@@ -266,10 +302,30 @@ if ($cerp!=false)
     ?>
   </tbody>
 </table>
-<input type="button" value="Atrás" onclick="atras()" class="btn btn-info" />
-<button type="button" class="btn btn-success">
-  Filtrar
-</button>
+<?php
+if (isset($_COOKIE["cedula"]) or isset($_COOKIE["nombre"]) or isset($_COOKIE["apellido"]) or isset($_COOKIE["id"]))
+{
+?>
+<h4>Filtros</h4>
+<?php if(isset($_COOKIE["cedula"])){
+?>
+<span class="badge badge-primary"><?php echo $_COOKIE["cedula"]; ?></span>
+<?php
+} ?>
+<?php if(isset($_COOKIE["nombre"])){
+?>
+<span class="badge badge-primary"><?php echo $_COOKIE["nombre"]; ?></span>
+<?php
+} ?>
+<?php if(isset($_COOKIE["apellido"])){
+?>
+<span class="badge badge-primary"><?php echo $_COOKIE["apellido"]; ?></span>
+<?php
+} ?>
+
+<a href="cerlista.php?id=<?php echo $_COOKIE["id"]; ?>&fil=0" class="badge badge-danger">Eliminar filtros</a>
+
+<?php } ?>
 </div>
     </div>
         </div>
