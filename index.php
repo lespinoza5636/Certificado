@@ -1,3 +1,17 @@
+<?php
+    session_start();
+    //echo php_ini_loaded_file();
+    include("busquedaCertificado.php");
+    $cer = new certi();
+    
+    if (isset($_GET["codigo"]))
+    {
+        $datos = $cer->getcertiParticipante($_GET["codigo"]);
+    }
+    
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,7 +84,7 @@ align-items: center;
           <div class="input-group-text"><i class="fas fa-barcode"></i>
 </div>
         </div>
-        <input type="text" class="form-control" id="codigo" placeholder="Código del Certificado">
+        <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Código del Certificado">
       </div>
             </div>
       <div class="col-auto my-1">
@@ -81,8 +95,53 @@ align-items: center;
         </div>
     </div>
 </div>
-
 <hr>
+<?php 
+  if (isset($datos) && $datos != false)
+  {
+    ?>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      
+      <th scope="col">Codigo</th>
+      <th scope="col">Evento</th>
+      <th scope="col">Nombre Participante</th>
+      <th scope="col">Apellido Participante</th>
+      <th scope="col">Tipo Certificado</th>
+      <th scope="col">Certificado</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  <?php 
+    foreach ($datos as $key => $value) {
+  ?>
+    
+    <tr>
+      
+      
+      <td><?php echo $value["codigo"]; ?></td>
+      <td><?php echo $value["nameevento"]; ?></td>
+      <td><?php echo $value["nombre"]; ?></td>
+      <td><?php echo $value["apellido"]; ?></td>
+      <td><?php echo $value["tipo"]; ?></td>
+      <td><img src="cer/<?php echo $value["imagen"]; ?>.jpg" alt="No se encuentra la imagen" height="100px"></td>
+      
+    </tr>
+
+
+    <?php 
+      # code...
+    }
+    ?>
+
+
+  </tbody>
+</table>
+<?php
+ }
+?>
 <br><br>
 
 
