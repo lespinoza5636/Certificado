@@ -6,7 +6,7 @@ $size = $_GET["size"];
 $text = $_GET["text"];
 
 echo "Hola";
-$img = new textPainter('./image.jpg', $text, './Franklin.ttf', $size);
+$img = new textPainter('./certificado_participante2.png', $text, './Franklin.ttf', $size);
 
 if(isset($_GET['x']) && isset($_GET['y'])){
     $img->setPosition($_GET['x'], $_GET['y']);

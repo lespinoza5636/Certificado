@@ -25,14 +25,14 @@ function CargarPNG($imagen)
 header ('Content-Type: image/png');
 // Crear la imagen usando la imagen base
 
-$image = CargarPNG('cer/diploma.png');
-//$image = imagecreatefrompng('cer/te.png');
+$image = CargarPNG('certificado_participante2.png');
+$image = imagecreatefrompng('cer/te.png');
 
 // Asignar el color para el texto
 $color = imagecolorallocate($image, 255, 255, 0);
 
 // Asignar la ruta de la fuente
-$font_path = 'Franklin.ttf';
+$font_path = 'Edwardian.ttf';
 
 $text = "TEXTO DINAMICO EN IMAGEN"; // Texto 1
 $text2 = "OTRA LINEA DE TEXTO CON PHP"; // Texto 2
